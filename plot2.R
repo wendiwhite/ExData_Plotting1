@@ -1,6 +1,6 @@
 # Exploratory Data Analysis
 # Course Project 1
-# Plot 1
+# Plot 2
 #
 # Introduction
 #
@@ -103,11 +103,12 @@ data$timestamp <- as.POSIXct(data$timestamp,format="%d/%m/%Y %H:%M:%S")
 data$globalactivepower <- as.numeric(data$globalactivepower)
 
 # Open PNG 
-png(filename = "plot1.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white")
+png(filename = "plot2.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white")
 
 # Create plot
 par(mfrow=c(1,1))
-hist(data$globalactivepower, col="red", xlab="Global Active Power (kilowatts)", main="Global Active Power")
+with(data,plot(timestamp,globalactivepower, type="n", main="", xlab="", ylab="Global Active Power (kilowatts)"))
+with(data,lines(timestamp,globalactivepower))
 
 # Close PNG 
 dev.off()

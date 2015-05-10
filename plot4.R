@@ -1,6 +1,6 @@
 # Exploratory Data Analysis
 # Course Project 1
-# Plot 1
+# Plot 4
 #
 # Introduction
 #
@@ -101,13 +101,37 @@ data$timestamp <- as.POSIXct(data$timestamp,format="%d/%m/%Y %H:%M:%S")
 
 # Cast numeric
 data$globalactivepower <- as.numeric(data$globalactivepower)
+data$submetering1 <- as.numeric(data$submetering1)
+data$submetering2 <- as.numeric(data$submetering2)
+data$submetering3<-as.numeric(data$submetering3)
+data$voltage <- as.numeric(data$voltage)
+data$globalreactivepower <- as.numeric(data$globalreactivepower)
 
 # Open PNG 
-png(filename = "plot1.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white")
+png(filename = "plot4.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white")
 
 # Create plot
-par(mfrow=c(1,1))
-hist(data$globalactivepower, col="red", xlab="Global Active Power (kilowatts)", main="Global Active Power")
+par(mfcol=c(2,2))
+
+# Global Active Power
+with(data,plot(timestamp,globalactivepower, type="n", main="", ylab="Global Active Power",xlab=""))
+with(data,lines(timestamp,globalactivepower))
+
+# Energy sub metering
+with(data,plot(timestamp,submetering1, type="n", main="", ylab="Energy sub metering",xlab=""))
+with(data,lines(timestamp,submetering1,col="black"))
+with(data,lines(timestamp,submetering2,col="red"))
+with(data,lines(timestamp,submetering3,col="blue"))
+legend("topright", bty = "n", lty=1, col= c("black","red","blue"),
+       legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
+
+# Voltage
+with(data,plot(timestamp,voltage, type="n", main="", ylab="Voltage",xlab="datetime"))
+with(data,lines(timestamp,voltage))
+
+# Global_Reactive_Power
+with(data,plot(timestamp,globalreactivepower, type="n", main="", xlab="datetime", ylab="Global_reactive_power"))
+with(data,lines(timestamp,globalreactivepower))
 
 # Close PNG 
 dev.off()

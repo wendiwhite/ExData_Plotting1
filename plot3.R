@@ -1,6 +1,6 @@
 # Exploratory Data Analysis
 # Course Project 1
-# Plot 1
+# Plot 3
 #
 # Introduction
 #
@@ -100,14 +100,21 @@ data$timestamp <- paste(data$date,data$time)
 data$timestamp <- as.POSIXct(data$timestamp,format="%d/%m/%Y %H:%M:%S")
 
 # Cast numeric
-data$globalactivepower <- as.numeric(data$globalactivepower)
+data$submetering1<-as.numeric(data$submetering1)
+data$submetering2<-as.numeric(data$submetering2)
+data$submetering3<-as.numeric(data$submetering3)
 
 # Open PNG 
-png(filename = "plot1.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white")
+png(filename = "plot3.png", width = 480, height = 480, units = "px", pointsize = 12, bg = "white")
 
 # Create plot
 par(mfrow=c(1,1))
-hist(data$globalactivepower, col="red", xlab="Global Active Power (kilowatts)", main="Global Active Power")
+with(data,plot(timestamp,submetering1, type="n", main="", xlab="", ylab="Energy sub metering"))
+with(data,lines(timestamp,submetering1,col="black"))
+with(data,lines(timestamp,submetering2,col="red"))
+with(data,lines(timestamp,submetering3,col="blue"))
+legend("topright", lty=1, col= c("black","red","blue"),
+       legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
 
 # Close PNG 
 dev.off()
